@@ -7,4 +7,6 @@ public interface UserService {
 
     List<User> getAllUsers();
 
+    Boolean createUser(User user);
+
 }

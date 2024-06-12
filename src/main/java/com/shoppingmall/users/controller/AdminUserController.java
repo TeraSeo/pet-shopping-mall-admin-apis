@@ -5,9 +5,7 @@ import com.shoppingmall.users.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,15 @@ public class AdminUserController {
         LOGGER.debug("get all users");
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    @PostMapping("/create-user")
+    public ResponseEntity<Boolean> createUser(@RequestBody User user) {
+        LOGGER.debug("create an user");
+        Boolean isUserCreated = userService.createUser(user);
+        if (isUserCreated) {
+            LOGGER.debug("user created");
+        }
+        return ResponseEntity.ok(isUserCreated);
     }
 }
