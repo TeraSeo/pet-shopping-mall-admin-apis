@@ -9,4 +9,5 @@ public interface UserService {
 
     Boolean createUser(User user);
 
+    Boolean editUser(User user);
 }

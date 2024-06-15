@@ -32,9 +32,21 @@ public class UserServiceImpl implements UserService {
             String password = user.getPassword();
             String encodedPassword = bCryptPasswordEncoder.encode(password);
             user.setPassword(encodedPassword);
+            user.setIsVerified(false);
             userRepository.save(user);
             return true;
         }
         return false;
     }
+
+    @Override
+    public Boolean editUser(User user) {
+        Optional<User> u = userRepository.findById(user.getId());
+        User originalUser = u.get();
+        user.updateModifiedDate();
+        user.setIsVerified(originalUser.getIsVerified());
+        userRepository.save(user);
+        return true;
+    }
+
 }

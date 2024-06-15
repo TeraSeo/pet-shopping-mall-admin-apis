@@ -36,4 +36,12 @@ public class AdminUserController {
         }
         return ResponseEntity.ok(isUserCreated);
     }
+
+    @PutMapping("/edit-user")
+    public ResponseEntity<Boolean> editUser(@RequestBody User user) {
+        LOGGER.debug(user.toString());
+        LOGGER.debug("edit an user");
+        Boolean isEdited = userService.editUser(user);
+        return ResponseEntity.ok(isEdited);
+    }
 }
