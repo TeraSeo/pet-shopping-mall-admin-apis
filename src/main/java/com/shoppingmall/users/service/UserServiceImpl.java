@@ -49,4 +49,14 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    @Override
+    public Boolean deleteUser(List<String> userIds) {
+        userIds.stream().forEach(
+            userId -> {
+                userRepository.deleteById(Long.parseLong(userId));
+            }
+        );
+        return true;
+    }
+
 }

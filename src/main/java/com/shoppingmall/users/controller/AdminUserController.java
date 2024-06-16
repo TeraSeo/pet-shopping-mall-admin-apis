@@ -39,9 +39,20 @@ public class AdminUserController {
 
     @PutMapping("/edit-user")
     public ResponseEntity<Boolean> editUser(@RequestBody User user) {
-        LOGGER.debug(user.toString());
-        LOGGER.debug("edit an user");
+        LOGGER.debug("edit user: " + user.toString());
         Boolean isEdited = userService.editUser(user);
         return ResponseEntity.ok(isEdited);
+    }
+
+    @DeleteMapping("/delete-users")
+    public ResponseEntity<Boolean> deleteUser(@RequestHeader List<String> userIds) {
+        LOGGER.debug("delete users");
+        userIds.stream().forEach(
+            userId -> {
+                LOGGER.debug("id: " + userId);
+            }
+        );
+        Boolean isDeleted = userService.deleteUser(userIds);
+        return ResponseEntity.ok(isDeleted);
     }
 }
