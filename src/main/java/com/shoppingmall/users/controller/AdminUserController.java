@@ -1,5 +1,6 @@
 package com.shoppingmall.users.controller;
 
+import com.shoppingmall.users.dto.UserDto;
 import com.shoppingmall.users.entity.User;
 import com.shoppingmall.users.service.UserService;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,10 +23,20 @@ public class AdminUserController {
     }
 
     @GetMapping("/fetch-users")
-    public ResponseEntity<List<User>> fetchUsers() {
+    public ResponseEntity<List<UserDto>> fetchUsers() {
         LOGGER.debug("get all users");
+        List<UserDto> userDtoList = new ArrayList<>();
         List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+        users.forEach(user -> {
+            UserDto userDto = UserDto.builder()
+                    .id(user.getId())
+                    .email(user.getEmail())
+                    .name(user.getName())
+                    .role(user.getRole())
+                    .isVerified(user.getIsVerified()).build();
+            userDtoList.add(userDto);
+        });
+        return ResponseEntity.ok(userDtoList);
     }
 
     @PostMapping("/create-user")
