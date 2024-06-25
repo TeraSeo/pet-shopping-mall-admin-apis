@@ -29,7 +29,7 @@ public class User extends BaseEntity {
 
     private Boolean isVerified;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.PERSIST)
     private Set<ProductDetail> productDetails;
 
     public User updateModifiedDate() {
